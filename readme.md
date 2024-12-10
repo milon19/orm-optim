@@ -1,7 +1,6 @@
 # The Art of Django ORM Optimization
 
 ## Project Setup
-<hr>
 
 - Clone the repository
 ```bash
@@ -62,7 +61,7 @@ python manage.py startapp <app_name> apps/<app_name>
 ```
 
 ## Introduction
-<hr>
+
 A car rental company needs to build a system where rental companies can list their cars with dynamic pricing across multiple currencies. The system needs to handle weekly pricing, multiple images per car, various rental packages, and additional addons.
 
 ### Database Models
