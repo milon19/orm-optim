@@ -54,7 +54,12 @@ python manage.py migrate
 python manage.py runserver
 ```
 
-- Create a django application
+- Run management commands to populate the data.
+```bash
+python manage.py generate_sample_data
+```
+
+- Create a django application (if needed)
 ```bash
 mkdir apps/<app_name>
 python manage.py startapp <app_name> apps/<app_name>
