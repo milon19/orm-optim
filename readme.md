@@ -69,5 +69,12 @@ python manage.py startapp <app_name> apps/<app_name>
 
 A car rental company needs to build a system where rental companies can list their cars with dynamic pricing across multiple currencies. The system needs to handle weekly pricing, multiple images per car, various rental packages, and additional addons.
 
+### Core Business Points
+- Rental companies can list their cars, providing details like location, features etc.
+- Rental companies can set weekly pricing for their cars.
+- Rental companies can set multiple images for their cars.
+- Rental companies can set various rental packages for their cars.
+- Rental companies can set additional addons for rental packages.
+
 ### Database Models
 ![alt text](db_diagram.png "Title")
