@@ -78,3 +78,8 @@ A car rental company needs to build a system where rental companies can list the
 
 ### Database Models
 ![alt text](db_diagram.png "Title")
+
+## Tasks
+
+  - [ ] **Task 1**: Implement an API endpoint to list all the cars. [details.](task1.md)
+    
