@@ -1,7 +1,7 @@
 # API endpoint to list all the cars
 
 ## API description: 
-This API will list all the cars available in the system. The cars will be filtered based on the query parameters. The cars will be paginated based on the `page` and `page_size` query parameters. The cars will be sorted based on the `sort_by` and `sort_order` query parameters.
+This API will list all the cars available in the system. The cars will be filtered based on the query parameters. The cars will be paginated based on the `page` and `page_size` query parameters.
 
 ### Endpoint: 
 `GET /api/v1/cars/`
@@ -9,8 +9,6 @@ This API will list all the cars available in the system. The cars will be filter
 ### Query Parameters:
 - `page` (optional): The page number to fetch. Default is 1.
 - `page_size` (optional): The number of items to fetch per page. Default is 10.
-- `sort_by` (optional): The field to sort by. Default is `created_at`.
-- `sort_order` (optional): The order to sort by. Default is `desc`.
 - `from_date` (required): The start date to filter the cars.
   - Format: `YYYY-MM-DD`
   - Example: `2021-01-01`
