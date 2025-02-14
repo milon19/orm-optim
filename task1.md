@@ -45,10 +45,6 @@ This API will list all the cars available in the system. The cars will be filter
       "to_location": "Pokhara",
       "from_date": "2021-01-01",
       "to_date": "2021-01-07",
-      "images": [
-        "http://localhost:8000/media/cars/1.jpg",
-        "http://localhost:8000/media/cars/2.jpg"
-      ],
       "packages": [
         {
           "name": "Standard",

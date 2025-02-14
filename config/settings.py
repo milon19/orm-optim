@@ -20,6 +20,7 @@ INSTALLED_APPS = [
     'apps.core',
     'apps.cars',
     'debug_toolbar',
+    'django_filters',
 ]
 
 MIDDLEWARE = [
