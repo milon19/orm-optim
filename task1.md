@@ -71,7 +71,11 @@ This API will list all the cars available in the system. The cars will be filter
           "discounted_price": 90,
           "discount": 10,
           "discount_percentage": 10,
-          "currency": "USD"
+          "currency": {
+                "id": 1,
+                "name": "United States dollar",
+                "code": "USD"
+          }
       }
     }
   ]
