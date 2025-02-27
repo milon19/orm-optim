@@ -1,16 +1,14 @@
 # API endpoint to list all the cars
 
 ## API description: 
-This API will list all the cars available in the system. The cars will be filtered based on the query parameters. The cars will be paginated based on the `page` and `page_size` query parameters. The cars will be sorted based on the `sort_by` and `sort_order` query parameters.
+This API will list all the cars available in the system. The cars will be filtered based on the query parameters. The cars will be paginated based on the `page` and `page_size` query parameters.
 
 ### Endpoint: 
-`GET /api/v1/cars/`
+`GET http://localhost:8000/cars/?from_date=2025-02-01&to_date=2025-02-07&currency=4`
 
 ### Query Parameters:
 - `page` (optional): The page number to fetch. Default is 1.
 - `page_size` (optional): The number of items to fetch per page. Default is 10.
-- `sort_by` (optional): The field to sort by. Default is `created_at`.
-- `sort_order` (optional): The order to sort by. Default is `desc`.
 - `from_date` (required): The start date to filter the cars.
   - Format: `YYYY-MM-DD`
   - Example: `2021-01-01`
@@ -47,20 +45,23 @@ This API will list all the cars available in the system. The cars will be filter
       "to_location": "Pokhara",
       "from_date": "2021-01-01",
       "to_date": "2021-01-07",
-      "images": [
-        "http://localhost:8000/media/cars/1.jpg",
-        "http://localhost:8000/media/cars/2.jpg"
-      ],
       "packages": [
         {
+          "id": 1,
           "name": "Standard",
           "is_default": true,
           "total_additional_price": 10,
           "addons": [
             {
+              "id": 1,
               "name": "GPS",
               "price": 10,
-              "currency": "USD"
+              "currency": {
+                "id": 1,
+                "name": "United States dollar",
+                "code": "USD"
+              },
+              "pricing_unit": "per_day"
             }
           ]
         }
@@ -70,7 +71,11 @@ This API will list all the cars available in the system. The cars will be filter
           "discounted_price": 90,
           "discount": 10,
           "discount_percentage": 10,
-          "currency": "USD"
+          "currency": {
+                "id": 1,
+                "name": "United States dollar",
+                "code": "USD"
+          }
       }
     }
   ]
