@@ -59,7 +59,7 @@ class CarPriceFactory(factory.django.DjangoModelFactory):
         model = CarPrice
 
     car = factory.SubFactory(CarFactory)
-    base_currency = factory.SubFactory(CurrencyFactory)
+    base_currency = factory.Iterator(Currency.objects.all())
 
     @factory.lazy_attribute
     def from_date(self):
@@ -86,7 +86,7 @@ class CarLocalPriceFactory(factory.django.DjangoModelFactory):
 
     car_price = factory.SubFactory(CarPriceFactory)
     local_price = factory.LazyAttribute(lambda x: x.car_price.base_price * (1 + random.uniform(-0.1, 0.1)))
-    currency = factory.SubFactory(CurrencyFactory)
+    currency = factory.Iterator(Currency.objects.all())
     exchange_rate = factory.LazyAttribute(lambda x: random.uniform(0.8, 1.2))
 
 
@@ -97,7 +97,7 @@ class RentalAddonFactory(factory.django.DjangoModelFactory):
     name = factory.Faker('word')
     is_mandatory = factory.Faker('boolean')
     price = factory.LazyAttribute(lambda x: random.uniform(5, 20))
-    currency = factory.SubFactory(CurrencyFactory)
+    currency = factory.Iterator(Currency.objects.all())
     pricing_unit = factory.Faker('word')
 
 
@@ -116,5 +116,5 @@ class RentalAddonLocalPriceFactory(factory.django.DjangoModelFactory):
 
     addon = factory.SubFactory(RentalAddonFactory)
     local_price = factory.LazyAttribute(lambda x: x.addon.price * (1 + random.uniform(-0.1, 0.1)))
-    currency = factory.SubFactory(CurrencyFactory)
+    currency = factory.Iterator(Currency.objects.all())
     exchange_rate = factory.LazyAttribute(lambda x: random.uniform(0.8, 1.2))
