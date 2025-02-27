@@ -4,7 +4,7 @@
 This API will list all the cars available in the system. The cars will be filtered based on the query parameters. The cars will be paginated based on the `page` and `page_size` query parameters.
 
 ### Endpoint: 
-`GET /api/v1/cars/`
+`GET http://localhost:8000/cars/?from_date=2025-02-01&to_date=2025-02-07&currency=4`
 
 ### Query Parameters:
 - `page` (optional): The page number to fetch. Default is 1.
@@ -47,14 +47,21 @@ This API will list all the cars available in the system. The cars will be filter
       "to_date": "2021-01-07",
       "packages": [
         {
+          "id": 1,
           "name": "Standard",
           "is_default": true,
           "total_additional_price": 10,
           "addons": [
             {
+              "id": 1,
               "name": "GPS",
               "price": 10,
-              "currency": "USD"
+              "currency": {
+                "id": 1,
+                "name": "United States dollar",
+                "code": "USD"
+              },
+              "pricing_unit": "per_day"
             }
           ]
         }
