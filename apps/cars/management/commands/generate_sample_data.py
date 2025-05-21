@@ -1,6 +1,6 @@
 from calendar import monthrange
 from datetime import date, timedelta
-from random import random
+from random import randint
 
 from django.core.management.base import BaseCommand
 from apps.cars.factories import (
@@ -59,7 +59,7 @@ def generate_data():
         rental_packages = [RentalPackageFactory(car=car, is_default=i == 0) for i in range(2)]
 
         for package in rental_packages:
-            addons = [RentalAddonFactory() for _ in range(random.randint(5, 8))]
+            addons = [RentalAddonFactory() for _ in range(randint(5, 8))]
             package.addons.add(*addons)
             for addon in addons:
                 for currency in currencies:
