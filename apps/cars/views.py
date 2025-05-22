@@ -21,7 +21,13 @@ class CarListAPIView(APIView):
 
 
     def get_queryset(self):
-        queryset = Car.objects.all()
+        queryset = Car.objects.all().select_related("company").prefetch_related(
+            "car_rental_packages",
+            "car_rental_packages__addons",
+            "car_rental_packages__addons__currency",
+            "car_prices",
+            "car_prices__base_currency",
+        )
         for backend in self.filter_backends:
             queryset = backend().filter_queryset(self.request, queryset, self)
         return queryset
