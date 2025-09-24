@@ -77,7 +77,23 @@ class RentalPackageSerializer(serializers.ModelSerializer):
             "total_addon_price",
         ]
 
+class CurrencySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Currency
+        fields = "__all__"
+
+class CarLocalPriceSerializer(serializers.ModelSerializer):
+    currency = CurrencySerializer()
+
+    class Meta:
+        model = CarLocalPrice
+        fields = "__all__"
+
+
 class CarPriceSerializer(serializers.ModelSerializer):
+    local_price = CarLocalPriceSerializer(source='car_local_prices', many=True)
+    base_currency = CurrencySerializer()
+
     class Meta:
         model = CarPrice
         fields = "__all__"

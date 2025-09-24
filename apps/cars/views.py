@@ -11,6 +11,7 @@ from apps.cars.models import (
     RentalAddonLocalPrice,
     RentalAddon,
     CarPrice,
+    CarLocalPrice,
 )
 from apps.cars.serializers import CarListSerializer
 
@@ -31,7 +32,11 @@ class CarListAPIView(APIView):
     def get_queryset(self):
         from_date = self.request.query_params.get('from_date')
         to_date = self.request.query_params.get('to_date')
-        car_prices_qs = CarPrice.objects.filter(from_date__lte=to_date, to_date__gte=from_date)
+        currency_id = self.request.query_params.get('currency')
+        car_local_prices_qs = CarLocalPrice.objects.filter(currency_id=currency_id).select_related('currency')
+        car_prices_qs = CarPrice.objects.filter(from_date__lte=to_date, to_date__gte=from_date).prefetch_related(
+            Prefetch('car_local_prices', queryset=car_local_prices_qs)
+        ).select_related('base_currency')
         queryset = Car.objects.select_related(
             'company', 'from_location', 'to_location'
         ).prefetch_related(
