@@ -8,7 +8,8 @@ from apps.cars.models import (
     RentalAddon,
     RentalAddonLocalPrice,
     Currency,
-    CarLocalPrice
+    CarLocalPrice,
+    CarPrice,
 )
 
 
@@ -76,6 +77,11 @@ class RentalPackageSerializer(serializers.ModelSerializer):
             "total_addon_price",
         ]
 
+class CarPriceSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = CarPrice
+        fields = "__all__"
+
 
 class CarListSerializer(serializers.ModelSerializer):
     from_location = serializers.CharField(source='from_location.name')
@@ -83,8 +89,8 @@ class CarListSerializer(serializers.ModelSerializer):
     from_date = serializers.SerializerMethodField()
     to_date = serializers.SerializerMethodField()
     company = CompanySerializer()
-    packages = RentalPackageSerializer(many=True, source='car_rental_packages')
-    price = serializers.SerializerMethodField()
+    # packages = RentalPackageSerializer(many=True, source='car_rental_packages')
+    prices = CarPriceSerializer(many=True, source='car_prices')
 
     def get_from_date(self, obj):
         from_date = self.context.get('request').query_params.get('from_date')
@@ -97,36 +103,6 @@ class CarListSerializer(serializers.ModelSerializer):
     def get_to_location(self, obj):
         return obj.to_location.name
 
-    def get_price(self, obj):
-        currency_id = self.context.get('request').query_params.get('currency')
-        from_date = self.get_from_date(obj)
-        to_date = self.get_to_date(obj)
-        local_prices = CarLocalPrice.objects.filter(
-            car_price__car=obj,
-            currency_id=currency_id,
-            car_price__from_date__gte=from_date,
-            car_price__to_date__lte=to_date
-        )
-        total_base_price = 0
-        for local_price in local_prices:
-            total_base_price += local_price.local_price
-        discount_rate = obj.car_prices.filter(
-            from_date__gte=from_date, to_date__lte=to_date
-        ).aggregate(discount_percentage=Avg('discount_rate'))
-        discount_percentage = discount_rate.get('discount_percentage', 0)
-        total_price = total_base_price - (total_base_price * discount_percentage)
-        currency = Currency.objects.filter(id=currency_id).first()
-        return {
-            'base_price': total_base_price,
-            'discounted_price': total_price,
-            'discount': total_base_price - total_price,
-            'discount_percentage': discount_percentage,
-            'currency': {
-                'id': currency.id,
-                'code': currency.code,
-                'name': currency.name,
-            }
-        }
 
     class Meta:
         model = Car
@@ -138,6 +114,6 @@ class CarListSerializer(serializers.ModelSerializer):
             "from_date",
             "to_date",
             "company",
-            "packages",
-            "price",
+            # "packages",
+            "prices",
         ]
